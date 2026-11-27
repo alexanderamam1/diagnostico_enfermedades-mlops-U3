@@ -136,7 +136,7 @@ El diagrama general está en el [README](../README.md#diagrama-general). Las eta
 | 04 | [Validación](04-validacion.md) | Métricas, equidad, explicabilidad y revisión médica, con umbrales automáticos | Nube | scikit-learn, Fairlearn, SHAP |
 | 05 | [Registro y aprobación](05-registro-y-aprobacion.md) | Versionar el modelo y aprobarlo antes de producción | Nube y GitHub | MLflow Model Registry, *environments* de GitHub |
 | 06 | [CI/CD](06-ci-cd.md) | Probar y empaquetar el servicio con el modelo aprobado | GitHub | GitHub Actions, GHCR |
-| 07 | [Despliegue](07-despliegue.md) | Modo remoto y modo local con la misma imagen | Nube y sedes | FastAPI, Streamlit, Docker, ONNX Runtime |
+| 07 | [Despliegue](07-despliegue.md) | Modo remoto y modo local con la misma imagen | Nube y sedes | FastAPI, Streamlit, Docker, ONNX Runtime, Caddy |
 | 08 | [Monitoreo](08-monitoreo.md) | Salud del servicio, deriva y desempeño | Nube | Prometheus, Grafana, Evidently |
 | 09 | [Retroalimentación y reentrenamiento](09-retroalimentacion-y-reentrenamiento.md) | Convertir correcciones en etiquetas y reentrenar con reglas claras | Sedes y nube | GitHub Actions programado, MLflow |
 | 10 | [Seguridad, gobierno y ética](10-seguridad-gobierno-y-etica.md) | Protección de datos, accesos, auditoría y documentación del modelo | Transversal | Secretos de GitHub, TLS, *model cards* |
