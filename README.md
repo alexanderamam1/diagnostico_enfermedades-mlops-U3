@@ -15,7 +15,7 @@ flowchart TB
         HCE -- "consultas con<br/>diagnóstico confirmado" --> D01
     end
 
-    subgraph ML["Entorno de ML en la nube · solo datos anonimizados"]
+    subgraph ML["Entorno de ML en la nube (Oracle Cloud, Bogotá) · solo datos anonimizados"]
         direction LR
         D02["<b>02. Características</b><br/>síntomas a HPO,<br/>codificación<br/><i>scikit-learn Pipeline</i>"]
         D03["<b>03. Entrenamiento</b><br/>comunes: LightGBM calibrado<br/>huérfanas: similitud HPO,<br/>pocos ejemplos, reglas expertas<br/><i>PyHPO · Optuna · MLflow Tracking</i>"]
@@ -49,8 +49,8 @@ flowchart TB
 
     subgraph TR["Transversales a todas las etapas"]
         direction LR
-        D10["<b>10. Seguridad, gobierno y ética</b><br/><i>Ley 1581 · secretos · auditoría · model card</i>"]
-        D11["<b>11. Orquestación e infraestructura</b><br/><i>GitHub Actions · Docker Compose · Terraform</i>"]
+        D10["<b>10. Seguridad, gobierno y ética</b><br/><i>Ley 1581 · OIDC · Vault · Trivy · model cards</i>"]
+        D11["<b>11. Orquestación e infraestructura</b><br/><i>GitHub Actions · Terraform · Oracle Cloud Bogotá</i>"]
     end
 
     D01 -- "dataset anonimizado<br/>y versionado" --> D02

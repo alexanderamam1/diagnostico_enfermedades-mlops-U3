@@ -139,8 +139,8 @@ El diagrama general está en el [README](../README.md#diagrama-general). Las eta
 | 07 | [Despliegue](07-despliegue.md) | Modo remoto y modo local con la misma imagen | Nube y sedes | FastAPI, Streamlit, Docker, ONNX Runtime, Caddy |
 | 08 | [Monitoreo](08-monitoreo.md) | Salud del servicio, deriva y desempeño | Nube | Prometheus, Grafana, Evidently |
 | 09 | [Retroalimentación y reentrenamiento](09-retroalimentacion-y-reentrenamiento.md) | Convertir correcciones en etiquetas y reentrenar con reglas claras | Sedes y nube | GitHub Actions programado, MLflow |
-| 10 | [Seguridad, gobierno y ética](10-seguridad-gobierno-y-etica.md) | Protección de datos, accesos, auditoría y documentación del modelo | Transversal | Secretos de GitHub, TLS, *model cards* |
-| 11 | [Orquestación e infraestructura](11-orquestacion-e-infraestructura.md) | Encadenar las etapas y definir dónde corre cada una | Transversal | GitHub Actions, Docker Compose, Terraform |
+| 10 | [Seguridad, gobierno y ética](10-seguridad-gobierno-y-etica.md) | Protección de datos, accesos, auditoría y documentación del modelo | Transversal | OIDC con doble factor, Vault, Trivy, *model cards* |
+| 11 | [Orquestación e infraestructura](11-orquestacion-e-infraestructura.md) | Encadenar las etapas y definir dónde corre cada una | Transversal | GitHub Actions, Terraform, Docker Compose, Oracle Cloud (Bogotá) |
 
 Las tecnologías de esta tabla son el punto de partida. Cada documento de etapa las justifica frente a sus alternativas y puede ajustarlas; si eso pasa, esta tabla y el diagrama se actualizan en el mismo cambio.
 

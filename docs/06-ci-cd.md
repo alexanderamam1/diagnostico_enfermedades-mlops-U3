@@ -48,6 +48,7 @@ El flujo `ci.yml` corre en cada PR, en paralelo por componente, y comenta el ini
 4. **Pruebas de los contratos de datos:** los esquemas de Pandera de [01. Datos](01-datos.md) se prueban con datos sintéticos que incluyen errores a propósito, para confirmar que los detectan.
 5. **Pruebas del contrato de la API:** la respuesta cumple el formato de [00. Contexto y supuestos](00-contexto-y-supuestos.md) (campos, tipos y los 5 estados).
 6. **Pruebas de comportamiento del modelo:** con el modelo `champion` actual descargado del registro, el servicio debe dar el resultado esperado en todos los **casos de referencia** y responder dentro de la latencia límite.
+7. **Vulnerabilidades:** Trivy analiza la imagen construida; una vulnerabilidad crítica impide fusionar ([10. Seguridad, gobierno y ética](10-seguridad-gobierno-y-etica.md)). Dependabot propone por PR las actualizaciones de dependencias.
 
 Si cualquier paso falla, el PR no se puede fusionar.
 
