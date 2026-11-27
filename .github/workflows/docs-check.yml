@@ -1,6 +1,6 @@
 # Validación de la documentación.
 #
-# En cada Pull Request contra main y en cada commit en main:
+# En cada Pull Request contra main o develop y en cada commit en esas ramas:
 #   1. Revisa los enlaces de todos los archivos Markdown. Los enlaces internos
 #      (entre archivos del repositorio) deben funcionar siempre; los externos se
 #      revisan con reintentos y solo generan aviso, para que un sitio caído no
@@ -13,11 +13,11 @@ name: Docs check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
 
-# Si llega un commit nuevo al mismo PR o a main, se cancela la ejecución anterior.
+# Si llega un commit nuevo al mismo PR o a la misma rama, se cancela la ejecución anterior.
 concurrency:
   group: docs-check-${{ github.ref }}
   cancel-in-progress: true
