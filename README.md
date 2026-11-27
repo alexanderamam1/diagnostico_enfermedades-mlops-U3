@@ -32,7 +32,7 @@ flowchart TB
     subgraph ENT["Entrega y despliegue"]
         direction LR
         D06["<b>06. CI/CD</b><br/>pruebas e imagen con<br/>el modelo en ONNX<br/><i>GitHub Actions · GHCR</i>"]
-        D07R["<b>07. Despliegue · modo remoto</b><br/>sedes urbanas, por internet<br/><i>FastAPI · Streamlit · Docker</i><br/>TLS y autenticación"]
+        D07R["<b>07. Despliegue · modo remoto</b><br/>sedes urbanas, por internet<br/><i>FastAPI · Streamlit · ONNX Runtime</i><br/>HTTPS con Caddy, oauth2-proxy"]
         D07L["<b>07. Despliegue · modo local</b><br/>PC del consultorio, sin conexión<br/><i>misma imagen · Docker Compose</i>"]
         D06 -- "imagen versionada" --> D07R
         D06 -- "imagen versionada" --> D07L
@@ -42,7 +42,7 @@ flowchart TB
         direction LR
         MED(["Médico"])
         D08["<b>08. Monitoreo</b><br/>servicio, deriva y desempeño<br/><i>Prometheus · Grafana · Evidently</i>"]
-        D09["<b>09. Retroalimentación<br/>y reentrenamiento</b><br/>confirmación del médico,<br/>disparadores definidos<br/><i>GitHub Actions programado</i>"]
+        D09["<b>09. Retroalimentación<br/>y reentrenamiento</b><br/>confirmación del médico,<br/>disparadores R1 a R6, modo sombra<br/><i>GitHub Actions programado</i>"]
         MED -- "confirma o corrige<br/>el resultado" --> D09
         D08 -- "alerta de deriva<br/>o bajo desempeño" --> D09
     end
