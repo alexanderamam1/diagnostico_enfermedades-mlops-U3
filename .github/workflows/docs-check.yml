@@ -1,0 +1,94 @@
+# Validación de la documentación.
+#
+# En cada Pull Request contra main y en cada commit en main:
+#   1. Revisa los enlaces de todos los archivos Markdown. Los enlaces internos
+#      (entre archivos del repositorio) deben funcionar siempre; los externos se
+#      revisan con reintentos y solo generan aviso, para que un sitio caído no
+#      bloquee un PR.
+#   2. Renderiza cada diagrama Mermaid (bloques ```mermaid en los .md y archivos
+#      .mmd de docs/img/). Si alguno tiene un error de sintaxis, el job falla.
+#      Las imágenes generadas quedan como artefacto descargable de la ejecución.
+
+name: Docs check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Si llega un commit nuevo al mismo PR o a main, se cancela la ejecución anterior.
+concurrency:
+  group: docs-check-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  enlaces:
+    name: Enlaces
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Enlaces internos (obligatorio)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress --include-fragments './**/*.md'
+          fail: true
+
+      - name: Enlaces externos (solo aviso)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-retries 3 --retry-wait-time 5 --accept '200..=299,403,429' './**/*.md'
+          fail: false
+
+  diagramas:
+    name: Diagramas Mermaid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar mermaid-cli
+        run: npm install --global @mermaid-js/mermaid-cli@11
+
+      - name: Renderizar diagramas
+        run: |
+          set -euo pipefail
+          # Chromium no puede usar su sandbox dentro del runner.
+          echo '{"args": ["--no-sandbox"]}' > /tmp/puppeteer.json
+          mkdir -p .render
+          total=0
+          # Bloques ```mermaid dentro de los Markdown.
+          while IFS= read -r archivo; do
+            if grep -q '^```mermaid' "$archivo"; then
+              nombre=$(echo "$archivo" | tr '/' '_' | sed 's/\.md$//')
+              echo "Renderizando bloques de $archivo"
+              mmdc -p /tmp/puppeteer.json -i "$archivo" -o ".render/${nombre}.md" -e png -b white -s 2
+              total=$((total + 1))
+            fi
+          done < <(git ls-files '*.md')
+          # Archivos fuente .mmd.
+          while IFS= read -r archivo; do
+            nombre=$(basename "$archivo" .mmd)
+            echo "Renderizando $archivo"
+            mmdc -p /tmp/puppeteer.json -i "$archivo" -o ".render/${nombre}.png" -b white -s 2
+            total=$((total + 1))
+          done < <(git ls-files 'docs/img/*.mmd')
+          echo "Archivos con diagramas renderizados: $total"
+
+      - name: Guardar imágenes renderizadas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagramas-renderizados
+          path: .render/
+          if-no-files-found: ignore
