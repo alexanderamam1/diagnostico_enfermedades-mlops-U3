@@ -18,10 +18,10 @@ flowchart TB
     subgraph ML["Entorno de ML en la nube · solo datos anonimizados"]
         direction LR
         D02["<b>02. Características</b><br/>síntomas a HPO,<br/>codificación<br/><i>scikit-learn Pipeline</i>"]
-        D03["<b>03. Entrenamiento</b><br/>comunes: LightGBM<br/>huérfanas: similitud HPO,<br/>transferencia, reglas Orphanet<br/><i>MLflow Tracking · Optuna</i>"]
+        D03["<b>03. Entrenamiento</b><br/>comunes: LightGBM calibrado<br/>huérfanas: similitud HPO,<br/>pocos ejemplos, reglas expertas<br/><i>PyHPO · Optuna · MLflow Tracking</i>"]
         D04["<b>04. Validación</b><br/>recall, AUC-PR, calibración,<br/>equidad, explicabilidad,<br/>revisión médica<br/><i>Fairlearn · SHAP</i>"]
         Q{"¿Cumple<br/>los umbrales?"}
-        D05["<b>05. Registro y aprobación</b><br/>aprobación clínica y técnica<br/><i>MLflow Model Registry</i>"]
+        D05["<b>05. Registro y aprobación</b><br/>aprobación clínica y técnica<br/><i>MLflow Model Registry ·<br/>environments de GitHub</i>"]
         D02 -- "matriz de<br/>características" --> D03
         D03 -- "modelos<br/>candidatos" --> D04
         D04 --> Q

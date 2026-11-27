@@ -130,11 +130,11 @@ El diagrama general está en el [README](../README.md#diagrama-general). Las eta
 
 | # | Etapa | Qué resuelve | Dónde corre | Tecnología principal |
 |---|---|---|---|---|
-| 01 | [Datos](01-datos.md) | Ingesta, anonimización, validación y versionado | Servidor de la red | Presidio, Pandera, DVC |
+| 01 | [Datos](01-datos.md) | Ingesta, anonimización, validación y versionado | Servidor de la red | FHIR `$export`, Presidio, Pandera, DVC |
 | 02 | [Características](02-caracteristicas.md) | Normalizar síntomas a HPO y codificar, igual en entrenamiento y en servicio | Nube | scikit-learn Pipeline |
-| 03 | [Entrenamiento](03-entrenamiento.md) | Una rama para comunes y otra para huérfanas | Nube | LightGBM, MLflow Tracking, Optuna |
+| 03 | [Entrenamiento](03-entrenamiento.md) | Una rama para comunes y otra para huérfanas | Nube | LightGBM, PyHPO, Optuna, MLflow Tracking |
 | 04 | [Validación](04-validacion.md) | Métricas, equidad, explicabilidad y revisión médica, con umbrales automáticos | Nube | scikit-learn, Fairlearn, SHAP |
-| 05 | [Registro y aprobación](05-registro-y-aprobacion.md) | Versionar el modelo y aprobarlo antes de producción | Nube | MLflow Model Registry |
+| 05 | [Registro y aprobación](05-registro-y-aprobacion.md) | Versionar el modelo y aprobarlo antes de producción | Nube y GitHub | MLflow Model Registry, *environments* de GitHub |
 | 06 | [CI/CD](06-ci-cd.md) | Probar y empaquetar el servicio con el modelo aprobado | GitHub | GitHub Actions, GHCR |
 | 07 | [Despliegue](07-despliegue.md) | Modo remoto y modo local con la misma imagen | Nube y sedes | FastAPI, Streamlit, Docker, ONNX Runtime |
 | 08 | [Monitoreo](08-monitoreo.md) | Salud del servicio, deriva y desempeño | Nube | Prometheus, Grafana, Evidently |
